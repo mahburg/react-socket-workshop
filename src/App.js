@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { socketConnect } from 'socket.io-react';
+// import { socketConnect } from 'socket.io-react';
 
 import './App.css';
 
@@ -10,54 +10,23 @@ class App extends Component {
       loggedIn: false,
       name: '',
       message: '',
-      users: [
-        {name: 'Lloyd'},
-        {name: 'Kyle'},
-        {name: 'Britta'},
-        {name: 'Cami'},
-        {name: 'Madison'},
-      ],
-      messages: [
-        {ts: `${new Date().getHours()}:${new Date().getMinutes()}`, name: 'Lloyd', msg:'Ciao'},
-        {ts: `${new Date().getHours()}:${new Date().getMinutes()}`, name: 'Britta', msg:'Salut'},
-        {ts: `${new Date().getHours()}:${new Date().getMinutes()}`, name: 'Kyle', msg:'Komichiwa'},
-        {ts: `${new Date().getHours()}:${new Date().getMinutes()}`, name: 'Cami', msg:'Hi'},
-        {ts: `${new Date().getHours()}:${new Date().getMinutes()}`, name: 'Madison', msg:'Hola'},
-      ]
+      users: [],
+      messages: []
     }
   }
 
   componentDidMount(){
-    let { socket } = this.props;
-
-    socket.on('logged in', (data)=>{
-      console.log(data)
-      this.setState({ loggedIn: data.loggedIn, user: data.currentUser, messages: data.history});
-    })
-
-    socket.on('update users', data=>{
-      console.log('update users')
-      console.log('users', data.users)
-      this.setState({ users: data.users });
-    })
-
-    socket.on('message', data=>{
-      this.setState({ messages: data });
-    })
+    //add socket.on functions
   }
 
   login(e){
     e.preventDefault()
-    console.log('logging in')
-    this.props.socket.emit('login', this.state.name)
+    //add emit
   }
 
   sendMsg(e){
     e.preventDefault()
-    let { user, message } = this.state;
-    let msg = {name: user, msg: message}
-    this.props.socket.emit('send message', msg)
-    this.setState({ message: '' });
+    //add emit
   }
 
   handleInput(e){
@@ -113,4 +82,5 @@ class App extends Component {
   }
 }
 
-export default socketConnect(App);
+// socket connect App;
+export default App;
